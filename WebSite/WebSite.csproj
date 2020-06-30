@@ -194,6 +194,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202006302334229_DB_Inicial.cs" />
+    <Compile Include="Migrations\202006302334229_DB_Inicial.Designer.cs">
+      <DependentUpon>202006302334229_DB_Inicial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Modelos\Entidades\Cliente.cs" />
     <Compile Include="Modelos\TiendaContextDb.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -232,6 +237,11 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202006302334229_DB_Inicial.resx">
+      <DependentUpon>202006302334229_DB_Inicial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

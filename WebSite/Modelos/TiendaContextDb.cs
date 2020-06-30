@@ -32,9 +32,4 @@
         public virtual DbSet<Cliente> Clientes { get; set; }
     }
 
-    //public class MyEntity
-    //{
-    //    public int Id { get; set; }
-    //    public string Name { get; set; }
-    //}
 }
