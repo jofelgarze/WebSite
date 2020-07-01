@@ -1,0 +1,15 @@
+﻿//Paso previo, se debe compilar la solucion sin errores y el proyecto que contiene la
+//migracion debe estar definido como el proyecto principal (solo para ejecutar la migracion)
+
+
+//Habilitar las migraciones de EF 6 Code First en el proyecto seleccionado
+enable-migrations
+
+//Crear un archivo de migracion con todos los cambios realizados a las Entidades
+//desde la ultima vez que se actualizo la base de datos
+add-migration <nombre_descriptivo>
+
+
+
+
+
