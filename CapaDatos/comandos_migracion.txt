@@ -9,7 +9,6 @@ enable-migrations
 //desde la ultima vez que se actualizo la base de datos
 add-migration <nombre_descriptivo>
 
-
-
+//Hola
 
 
