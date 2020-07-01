@@ -1,5 +1,6 @@
 namespace CapaDatos.Migrations
 {
+    using CapaDatos.Entidades;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -14,10 +15,18 @@ namespace CapaDatos.Migrations
 
         protected override void Seed(CapaDatos.TiendaContextoDb context)
         {
-            //  This method will be called after migrating to the latest version.
+            if (context.Clientes.Count() == 0) {
+                var cliente = new Cliente()
+                {
+                    Nombres = "Josue",
+                    Apellidos = "Garcia",
+                    Activo = true,
+                    FechaIngreso = DateTime.Now.AddDays(-6)
+                };
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data.
+                context.Clientes.AddOrUpdate(cliente);
+                context.SaveChanges();
+            }
         }
     }
 }

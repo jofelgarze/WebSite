@@ -9,6 +9,10 @@ enable-migrations
 //desde la ultima vez que se actualizo la base de datos
 add-migration <nombre_descriptivo>
 
-//Hola
+//ejecutar la actualizacion de todos los archivos de 
+//migraciones pendientes desde la ultima vez que se actualizo
+update-database
 
 
+//Permite ver los scripts que se estan ejecutando en ese momento
+update-database -Verbose
