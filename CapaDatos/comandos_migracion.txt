@@ -1,6 +1,8 @@
-﻿//Paso previo, se debe compilar la solucion sin errores y el proyecto que contiene la
-//migracion debe estar definido como el proyecto principal (solo para ejecutar la migracion)
+﻿
 
+//Paso previo, se debe compilar la solucion sin errores y el proyecto que contiene la
+//migracion debe estar definido como el proyecto principal (solo para ejecutar la migracion)
+//Tener presente que pueden faltar algunas dependencias al descargar el proyecto por primera vez (paquetes nuget)
 
 //Habilitar las migraciones de EF 6 Code First en el proyecto seleccionado
 enable-migrations

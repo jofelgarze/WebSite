@@ -10,7 +10,7 @@
     {
 
         public TiendaContextoDb()
-            : base("name=TiendaContextoDb")
+            : base("TiendaContextoDb")
         {
 
         }
