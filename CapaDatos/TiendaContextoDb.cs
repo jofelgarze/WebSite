@@ -24,7 +24,8 @@
         }
 
         public DbSet<Cliente> Clientes { get; set; }
-
+        public DbSet<Producto> Productos { get; set; }
+        
     }
 
 }

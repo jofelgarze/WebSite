@@ -27,6 +27,19 @@ namespace CapaDatos.Migrations
                 context.Clientes.AddOrUpdate(cliente);
                 context.SaveChanges();
             }
+
+            if (context.Productos.Count() == 0)
+            {
+                var producto = new Producto()
+                {
+                    Nombre = "Monitor 24\"",
+                    Activo = true,
+                    Precio = 350.55
+                };
+
+                context.Productos.AddOrUpdate(producto);
+                context.SaveChanges();
+            }
         }
     }
 }
