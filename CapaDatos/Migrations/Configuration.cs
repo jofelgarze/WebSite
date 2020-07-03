@@ -27,6 +27,26 @@ namespace CapaDatos.Migrations
                 context.Clientes.AddOrUpdate(cliente);
                 context.SaveChanges();
             }
+            
+            var tipoProducto = new TipoProducto()
+            {
+                Nombre = "Electrónicos",
+            };
+
+            if (context.TipoProducto.Count() == 0)
+            {
+                context.TipoProducto.AddOrUpdate(tipoProducto);
+                context.TipoProducto.AddOrUpdate(new TipoProducto()
+                {
+                    Nombre = "Linea Blanca",
+                });
+                context.TipoProducto.AddOrUpdate(new TipoProducto()
+                {
+                    Nombre = "Accesorios",
+                });
+                
+                context.SaveChanges();
+            }
 
             if (context.Productos.Count() == 0)
             {
@@ -34,12 +54,16 @@ namespace CapaDatos.Migrations
                 {
                     Nombre = "Monitor 24\"",
                     Activo = true,
-                    Precio = 350.55
+                    Precio = 350.55,
+                    TipoProducto = tipoProducto
                 };
 
                 context.Productos.AddOrUpdate(producto);
                 context.SaveChanges();
             }
+
+
+            
         }
     }
 }

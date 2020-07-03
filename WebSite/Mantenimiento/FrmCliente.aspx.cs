@@ -14,7 +14,9 @@ namespace WebSite.Mantenimiento
         private TiendaContextoDb contexto = new TiendaContextoDb();
         protected void Page_Load(object sender, EventArgs e)
         {
-            limpiarFormulario();
+            if (!Page.IsPostBack) {
+                calFechaIngreso.SelectedDate = DateTime.Today;
+            }
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
@@ -26,7 +28,8 @@ namespace WebSite.Mantenimiento
                     Nombres = txtNombres.Text,
                     Apellidos = txtApellidos.Text,
                     FechaIngreso = calFechaIngreso.SelectedDate,
-                    Activo = chkActivo.Checked
+                    Activo = chkActivo.Checked,
+                    TipoInscripcion = rbtInternet.Checked ? "Internet" : "Ventanilla"
                 };
                 contexto.Clientes.Add(cliente);
                 contexto.SaveChanges();
@@ -88,7 +91,10 @@ namespace WebSite.Mantenimiento
             txtApellidos.Text = "";
             txtFechaIngreso.Text = "";
             calFechaIngreso.SelectedDate = DateTime.Today;
+            rbtInternet.Checked = false;
+            rbtVentanilla.Checked = false;
             chkActivo.Checked = false;
+
         }
 
         protected void btnCancelar_Click(object sender, EventArgs e)

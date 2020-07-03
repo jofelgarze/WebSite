@@ -4,7 +4,7 @@
     <h1>Clientes <small>Mantenimiento</small></h1>
     <hr />
     <div class="row" >
-        <div class="col-md-4">
+        <div class="col-md-5">
             <div class="form-horizontal">
                 <div class="form-group">
                     <asp:Panel ID="pnlMensajes" runat="server" Visible="false">
@@ -16,6 +16,13 @@
                     <div class="col-sm-8">
                         <asp:TextBox ID="txtNombres" runat="server" CssClass="form-control" 
                             AutoCompleteType="Disabled" placeholder="Nombres"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="rfvNombres" ControlToValidate="txtNombres" Display="Dynamic"
+                            runat="server" ErrorMessage="El campo es obligatorio..." CssClass="text-danger">
+                        </asp:RequiredFieldValidator>
+                        <asp:RegularExpressionValidator ID="revNombres" runat="server" CssClass="text-danger"
+                            ValidationExpression="^[\s\S]{3,50}$" ControlToValidate="txtNombres"  Display="Dynamic"
+                            ErrorMessage="Debe tener entre 3 y 50 caracteres">
+                        </asp:RegularExpressionValidator>
                     </div>
                 </div>
                 <div class="form-group">
@@ -23,6 +30,30 @@
                     <div class="col-sm-8">
                         <asp:TextBox ID="txtApellidos" runat="server" CssClass="form-control" 
                             AutoCompleteType="Disabled" placeholder="Apellidos"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="rfvApellidos" ControlToValidate="txtNombres" Display="Dynamic"
+                            runat="server" ErrorMessage="El campo es obligatorio..." CssClass="text-danger">
+                        </asp:RequiredFieldValidator>
+                        <asp:RegularExpressionValidator ID="revApellidos" runat="server" CssClass="text-danger"
+                            ValidationExpression="^[\s\S]{3,50}$" ControlToValidate="txtApellidos"  Display="Dynamic"
+                            ErrorMessage="Debe tener entre 3 y 50 caracteres">
+                        </asp:RegularExpressionValidator>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="fingreso" class="col-sm-4 control-label">Tipo Inscripción</label>
+                    <div class="col-sm-8">
+                        <div class="checkbox">
+                            <label>
+                                <asp:RadioButton runat="server" ID="rbtInternet" GroupName="TipoInscripcion"></asp:RadioButton>
+                                Internet 
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <asp:RadioButton runat="server" ID="rbtVentanilla" GroupName="TipoInscripcion"></asp:RadioButton>
+                                Ventallina
+                            </label>
+                        </div>                        
                     </div>
                 </div>
                 <div class="form-group">
@@ -46,10 +77,23 @@
                 <div class="form-group">
                     <div class="col-sm-offset-4 col-sm-8">
                         <asp:Button ID="btnGuardar" runat="server" Text="Guardar" class="btn btn-default" OnClick="btnGuardar_Click"/>
-                        <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" class="btn btn-default" OnClick="btnCancelar_Click"/>
+                        <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" class="btn btn-default" 
+                            OnClick="btnCancelar_Click" CausesValidation="false"/>
                     </div>
                 </div>
             </div>
+        </div>
+    
+        <div class="col-md-7">
+            <asp:GridView ID="grvClientes" runat="server" AutoGenerateColumns="False">
+                <Columns>
+                    <asp:BoundField HeaderText="Codigo" />
+                    <asp:BoundField HeaderText="Nombres" />
+                    <asp:BoundField HeaderText="Apellidos" />
+                    <asp:BoundField HeaderText="T. Inscrip." />
+                    <asp:BoundField HeaderText="Activo" />
+                </Columns>
+            </asp:GridView>
         </div>
     </div>
 

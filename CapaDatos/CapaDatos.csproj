@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Entidades\Cliente.cs" />
     <Compile Include="Entidades\Producto.cs" />
+    <Compile Include="Entidades\TipoProducto.cs" />
     <Compile Include="Migrations\202007010053120_BaseDatosIncial.cs" />
     <Compile Include="Migrations\202007010053120_BaseDatosIncial.Designer.cs">
       <DependentUpon>202007010053120_BaseDatosIncial.cs</DependentUpon>
@@ -59,6 +60,10 @@
     <Compile Include="Migrations\202007020209447_CrearTablaProductos.cs" />
     <Compile Include="Migrations\202007020209447_CrearTablaProductos.Designer.cs">
       <DependentUpon>202007020209447_CrearTablaProductos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007030108426_CrearTablaTipoProducto_AltClienteProducto.cs" />
+    <Compile Include="Migrations\202007030108426_CrearTablaTipoProducto_AltClienteProducto.Designer.cs">
+      <DependentUpon>202007030108426_CrearTablaTipoProducto_AltClienteProducto.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -77,6 +82,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007020209447_CrearTablaProductos.resx">
       <DependentUpon>202007020209447_CrearTablaProductos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007030108426_CrearTablaTipoProducto_AltClienteProducto.resx">
+      <DependentUpon>202007030108426_CrearTablaTipoProducto_AltClienteProducto.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

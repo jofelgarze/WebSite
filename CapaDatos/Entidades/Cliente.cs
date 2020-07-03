@@ -23,7 +23,12 @@ namespace CapaDatos.Entidades
         [Column(TypeName = "varchar")]
         [StringLength(50)]
         public string Apellidos { get; set; }
-        
+
+        [Required]
+        [Column(TypeName = "varchar")]
+        [StringLength(10)]
+        public string TipoInscripcion { get; set; }
+
         public DateTime FechaIngreso { get; set; }
         public bool Activo { get; set; }
     }
