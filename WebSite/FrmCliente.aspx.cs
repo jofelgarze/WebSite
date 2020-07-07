@@ -44,5 +44,39 @@ namespace WebSite
 
             }
         }
+
+        protected void rowsToDisplay_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            gvClientes.PageSize = int.Parse(rowsToDisplay.SelectedValue);
+        }
+
+        protected void gvClientes_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "Crear" && Page.IsValid) {
+                insertarRegistro();
+            }
+        }
+
+        private void insertarRegistro() {
+            //var cliente = new Cliente();
+            //cliente.Nombres = (gvClientes.FooterRow.FindControl("txtNuevoNombre") as TextBox).Text;
+            //cliente.Apellidos = (gvClientes.FooterRow.FindControl("txtNuevoApellido") as TextBox).Text;
+            //cliente.FechaNacimiento = DateTime.Parse((gvClientes.FooterRow.FindControl("txtNuevaFechaNacimiento") as TextBox).Text);
+            //cliente.Activo = (gvClientes.FooterRow.FindControl("chkNuevoActivo") as CheckBox).Checked;
+            //odsClientes.InsertParameters["Nombres"].DefaultValue = cliente.Nombres;
+            //odsClientes.InsertParameters["Apellidos"].DefaultValue = cliente.Apellidos;
+            //odsClientes.InsertParameters["FechaNacimiento"].DefaultValue = (gvClientes.FooterRow.FindControl("txtNuevaFechaNacimiento") as TextBox).Text;
+            //odsClientes.InsertParameters["Activo"].DefaultValue = cliente.Activo.ToString();
+            odsClientes.Insert();
+        }
+
+        protected void odsClientes_Inserting(object sender, ObjectDataSourceMethodEventArgs e)
+        {
+            e.InputParameters["Nombres"] = (gvClientes.FooterRow.FindControl("txtNuevoNombre") as TextBox).Text;
+            e.InputParameters["Apellidos"] = (gvClientes.FooterRow.FindControl("txtNuevoApellido") as TextBox).Text;
+            e.InputParameters["FechaNacimiento"] = DateTime.Parse((gvClientes.FooterRow.FindControl("txtNuevaFechaNacimiento") as TextBox).Text);
+            e.InputParameters["Activo"] = (gvClientes.FooterRow.FindControl("chkNuevoActivo") as CheckBox).Checked;
+        }
+
     }
 }
