@@ -15,8 +15,8 @@ namespace CapaDatos.Negocio
             return contextoDb.Clientes.Count();
         }
 
-        public List<Cliente> consultarClientes(int filaInicial, int filasPagina) {
-            return contextoDb.Clientes.OrderBy(c => c.Id).Skip(filaInicial).Take(filasPagina).ToList();
+        public List<Cliente> consultarClientes(int filaInicial, int filasPagina = 10) {
+            return contextoDb.Clientes.OrderBy(c => c.Id).Skip(filaInicial).Take(100).ToList();
         }
 
         public void crearCliente(string nombres, string apellidos, DateTime fechaIngreso, Boolean activo, string tipoInscripcion) {
