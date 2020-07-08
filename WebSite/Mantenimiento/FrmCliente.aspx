@@ -60,8 +60,7 @@
                     <label for="fingreso" class="col-sm-4 control-label">Fecha Ingreso</label>
                     <div class="col-sm-8">
                        <asp:TextBox ID="txtFechaIngreso" runat="server" CssClass="form-control" 
-                            AutoCompleteType="Disabled" placeholder="Fecha Ingreso" Visible="false"></asp:TextBox>
-                        <asp:Calendar ID="calFechaIngreso" runat="server" ></asp:Calendar>
+                            AutoCompleteType="Disabled" placeholder="Fecha Ingreso"></asp:TextBox>
                     </div>
                 </div>
                 <div class="form-group">
@@ -85,16 +84,37 @@
         </div>
     
         <div class="col-md-7">
-            <asp:GridView ID="grvClientes" runat="server" AutoGenerateColumns="False">
+            <asp:GridView ID="grvClientes" runat="server" AutoGenerateColumns="False" 
+                DataSourceID="odsCliente" CssClass="table  table-striped table-bordered table-hover table-responsive " HeaderStyle-CssClass="thead-inverse">
                 <Columns>
-                    <asp:BoundField HeaderText="Codigo" />
-                    <asp:BoundField HeaderText="Nombres" />
-                    <asp:BoundField HeaderText="Apellidos" />
-                    <asp:BoundField HeaderText="T. Inscrip." />
-                    <asp:BoundField HeaderText="Activo" />
+                    <asp:BoundField HeaderText="Codigo" DataField="Id"/>
+                    <asp:BoundField HeaderText="Nombres" DataField="Nombres" />
+                    <asp:BoundField HeaderText="Apellidos" DataField="Apellidos" />
+                    <asp:BoundField HeaderText="T. Inscrip." DataField="TipoInscripcion" />
+                    <asp:BoundField HeaderText="Activo" DataField="Activo"/>
                 </Columns>
             </asp:GridView>
+            <asp:ObjectDataSource ID="odsCliente" runat="server" 
+                TypeName="CapaDatos.Negocio.ClientesNegocio"
+                EnablePaging="true"
+                SelectMethod="consultarClientes"
+                StartRowIndexParameterName="filaInicial"
+                MaximumRowsParameterName="filasPagina"
+                SelectCountMethod="totalRegistrosCliente"
+                InsertMethod="crearCliente">
+                <InsertParameters>
+                    <asp:Parameter Name="nombres" Type="String" />
+                    <asp:Parameter Name="apellidos" Type="String" />
+                    <asp:Parameter Name="fechaIngreso" Type="DateTime" />
+                    <asp:Parameter Name="activo" Type="Boolean" />
+                    <asp:Parameter Name="tipoInscripcion" Type="String" />
+                </InsertParameters>
+            </asp:ObjectDataSource>
         </div>
     </div>
-
+    <script>
+        $("#MainContent_txtFechaIngreso").datepicker({
+            "dateFormat":"yy-mm-dd",
+        });
+    </script>
 </asp:Content>

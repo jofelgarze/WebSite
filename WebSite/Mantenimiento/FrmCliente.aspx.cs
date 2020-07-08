@@ -1,5 +1,6 @@
 ﻿using CapaDatos;
 using CapaDatos.Entidades;
+using CapaDatos.Negocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +12,11 @@ namespace WebSite.Mantenimiento
 {
     public partial class FrmCliente : System.Web.UI.Page
     {
-        private TiendaContextoDb contexto = new TiendaContextoDb();
+        private ClientesNegocio negocio = new ClientesNegocio();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack) {
-                calFechaIngreso.SelectedDate = DateTime.Today;
+                
             }
         }
 
@@ -23,36 +24,7 @@ namespace WebSite.Mantenimiento
         {
             try
             {
-                var cliente = new Cliente()
-                {
-                    Nombres = txtNombres.Text,
-                    Apellidos = txtApellidos.Text,
-                    FechaIngreso = calFechaIngreso.SelectedDate,
-                    Activo = chkActivo.Checked,
-                    TipoInscripcion = rbtInternet.Checked ? "Internet" : "Ventanilla"
-                };
-                contexto.Clientes.Add(cliente);
-                contexto.SaveChanges();
-
-                pnlMensajes.Visible = true;
-                pnlMensajes.CssClass = "alert alert-success";
-                lblMensaje.Text = "Se ingresó correctamente el cliente...";
-                limpiarFormulario();
-
-            }
-            catch (Exception ex)
-            {
-                pnlMensajes.Visible = true;
-                pnlMensajes.CssClass = "alert alert-danger";
-                lblMensaje.Text = "Error al guardar la informacion: " + ex.Message;
-            }
-        }
-
-        protected void btnGuardarOpcional_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                DateTime fechaIngreso = calFechaIngreso.SelectedDate;
+                DateTime fechaIngreso;
 
                 if (DateTime.TryParseExact(txtFechaIngreso.Text, "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out fechaIngreso))
                 {
@@ -61,15 +33,16 @@ namespace WebSite.Mantenimiento
                         Nombres = txtNombres.Text,
                         Apellidos = txtApellidos.Text,
                         FechaIngreso = fechaIngreso,
-                        Activo = chkActivo.Checked
+                        Activo = chkActivo.Checked,
+                        TipoInscripcion = rbtInternet.Checked ? "Internet" : "Ventanilla"
                     };
-                    contexto.Clientes.Add(cliente);
-                    contexto.SaveChanges();
+                    negocio.crearCliente(cliente);
 
                     pnlMensajes.Visible = true;
                     pnlMensajes.CssClass = "alert alert-success";
                     lblMensaje.Text = "Se ingresó correctamente el cliente...";
                     limpiarFormulario();
+                    grvClientes.DataBind();
                 }
                 else {
                     pnlMensajes.Visible = true;
@@ -90,7 +63,6 @@ namespace WebSite.Mantenimiento
             txtNombres.Text = "";
             txtApellidos.Text = "";
             txtFechaIngreso.Text = "";
-            calFechaIngreso.SelectedDate = DateTime.Today;
             rbtInternet.Checked = false;
             rbtVentanilla.Checked = false;
             chkActivo.Checked = false;
