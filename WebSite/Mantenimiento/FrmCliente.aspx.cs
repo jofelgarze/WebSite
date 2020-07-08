@@ -75,5 +75,12 @@ namespace WebSite.Mantenimiento
             pnlMensajes.Visible = false;
             lblMensaje.Text = "";
         }
+
+        //protected void ddlFilasPorPagina_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    grvClientes.PageSize = int.Parse(ddlFilasPorPagina.SelectedValue);
+        //}
     }
+
+
 }

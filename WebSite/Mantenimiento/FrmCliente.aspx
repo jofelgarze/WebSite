@@ -84,21 +84,41 @@
         </div>
     
         <div class="col-md-7">
-            <asp:GridView ID="grvClientes" runat="server" AutoGenerateColumns="False" 
+            <%--<asp:Label ID="mensaje" runat="server" Text="Label"></asp:Label>
+            <asp:DropDownList 
+                  AutoPostBack="true" 
+                  ID="ddlFilasPorPagina" 
+                  runat="server" 
+                  onselectedindexchanged="ddlFilasPorPagina_SelectedIndexChanged">
+                <asp:ListItem Value="5"></asp:ListItem>
+                <asp:ListItem Value="10" Selected="True"></asp:ListItem>
+                <asp:ListItem Value="20"></asp:ListItem>
+            </asp:DropDownList> 
+                PageSize
+                --%>
+            <asp:GridView ID="grvClientes" runat="server" AutoGenerateColumns="False" AllowPaging="True" AllowSorting="True"
                 DataSourceID="odsCliente" CssClass="table  table-striped table-bordered table-hover table-responsive " HeaderStyle-CssClass="thead-inverse">
                 <Columns>
-                    <asp:BoundField HeaderText="Codigo" DataField="Id"/>
-                    <asp:BoundField HeaderText="Nombres" DataField="Nombres" />
-                    <asp:BoundField HeaderText="Apellidos" DataField="Apellidos" />
-                    <asp:BoundField HeaderText="T. Inscrip." DataField="TipoInscripcion" />
-                    <asp:BoundField HeaderText="Activo" DataField="Activo"/>
+                    <%--<asp:BoundField HeaderText="Fecha Ing." DataField="FechaIngreso" SortExpression="FechaIngreso" DataFormatString="{0:d}" />--%>
+                    <asp:BoundField HeaderText="Codigo" DataField="Id" SortExpression="Id"/>
+                    <asp:BoundField HeaderText="Nombres" DataField="Nombres"  SortExpression="Nombres"/>
+                    <asp:BoundField HeaderText="Apellidos" DataField="Apellidos" SortExpression="Apellidos" />
+                    <asp:BoundField HeaderText="T. Inscrip." DataField="TipoInscripcion" SortExpression="TipoInscripcion" />
+                    <asp:TemplateField HeaderText="Fecha Ing." SortExpression="FechaIngreso">
+                        <ItemTemplate>
+                            <asp:Label ID="lblColFechaIng" runat="server" Text='<%# DateTime.Parse(Eval("FechaIngreso").ToString()).ToShortDateString() %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:CheckBoxField DataField="Activo" HeaderText="Activo" SortExpression="Activo" />
                 </Columns>
+                <PagerStyle HorizontalAlign="Center" />
             </asp:GridView>
             <asp:ObjectDataSource ID="odsCliente" runat="server" 
                 TypeName="CapaDatos.Negocio.ClientesNegocio"
                 EnablePaging="true"
                 SelectMethod="consultarClientes"
                 StartRowIndexParameterName="filaInicial"
+                SortParameterName="ordenPor"
                 MaximumRowsParameterName="filasPagina"
                 SelectCountMethod="totalRegistrosCliente"
                 InsertMethod="crearCliente">
