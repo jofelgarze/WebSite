@@ -96,7 +96,8 @@
             </asp:DropDownList> 
                 PageSize
                 --%>
-            <asp:GridView ID="grvClientes" runat="server" AutoGenerateColumns="False" AllowPaging="True" AllowSorting="True"
+            <asp:GridView ID="grvClientes" runat="server" AutoGenerateColumns="False" 
+                AllowPaging="True" AllowSorting="True"
                 DataSourceID="odsCliente" CssClass="table  table-striped table-bordered table-hover table-responsive " HeaderStyle-CssClass="thead-inverse"
                 DataKeyNames="Id">
                 <Columns>

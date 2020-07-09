@@ -64,8 +64,8 @@
                                 Mantenimiento <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a runat="server" href="Mantenimiento/FrmCliente">Clientes</a></li>
-                                <li><a href="#">Productos</a></li>
+                                <li><a runat="server" href="/Mantenimiento/FrmCliente">Clientes</a></li>
+                                <li><a href="/Mantenimiento/FrmProductos">Productos</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li><a href="#">Anular Pedido</a></li>
                             </ul>
