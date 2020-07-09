@@ -51,7 +51,7 @@
                         <div class="checkbox">
                             <label>
                                 <asp:RadioButton runat="server" ID="rbtVentanilla" GroupName="TipoInscripcion"></asp:RadioButton>
-                                Ventallina
+                                Ventanilla
                             </label>
                         </div>                        
                     </div>
@@ -97,20 +97,39 @@
                 PageSize
                 --%>
             <asp:GridView ID="grvClientes" runat="server" AutoGenerateColumns="False" AllowPaging="True" AllowSorting="True"
-                DataSourceID="odsCliente" CssClass="table  table-striped table-bordered table-hover table-responsive " HeaderStyle-CssClass="thead-inverse">
+                DataSourceID="odsCliente" CssClass="table  table-striped table-bordered table-hover table-responsive " HeaderStyle-CssClass="thead-inverse"
+                DataKeyNames="Id">
                 <Columns>
                     <%--<asp:BoundField HeaderText="Fecha Ing." DataField="FechaIngreso" SortExpression="FechaIngreso" DataFormatString="{0:d}" />--%>
-                    <asp:BoundField HeaderText="Codigo" DataField="Id" SortExpression="Id"/>
+                    <asp:BoundField HeaderText="Codigo" DataField="Id" SortExpression="Id" ReadOnly="true"/>
                     <asp:BoundField HeaderText="Nombres" DataField="Nombres"  SortExpression="Nombres"/>
                     <asp:BoundField HeaderText="Apellidos" DataField="Apellidos" SortExpression="Apellidos" />
-                    <asp:BoundField HeaderText="T. Inscrip." DataField="TipoInscripcion" SortExpression="TipoInscripcion" />
+                    <asp:TemplateField HeaderText="T. Inscrip." SortExpression="TipoInscripcion">
+                        <ItemTemplate>
+                            <asp:Label ID="lblCodigo" runat="server" Text='<%# Eval("TipoInscripcion") %>'></asp:Label>
+                        </ItemTemplate>
+                        <EditItemTemplate>
+                            <asp:DropDownList ID="ddlTipoInscripcion" runat="server" SelectedValue='<%# Bind("TipoInscripcion") %>'>
+                                <asp:ListItem Value="Internet"></asp:ListItem>
+                                <asp:ListItem Value="Ventanilla"></asp:ListItem>
+                            </asp:DropDownList> 
+                        </EditItemTemplate>
+                    </asp:TemplateField>
                     <asp:TemplateField HeaderText="Fecha Ing." SortExpression="FechaIngreso">
                         <ItemTemplate>
                             <asp:Label ID="lblColFechaIng" runat="server" Text='<%# DateTime.Parse(Eval("FechaIngreso").ToString()).ToShortDateString() %>'></asp:Label>
                         </ItemTemplate>
+                        <EditItemTemplate>
+                             <asp:TextBox ID="txtFechaIngresoFila" runat="server" 
+                                Text='<%# Bind("FechaIngreso") %>'></asp:TextBox>
+                        </EditItemTemplate>
                     </asp:TemplateField>
                     <asp:CheckBoxField DataField="Activo" HeaderText="Activo" SortExpression="Activo" />
+                    <asp:CommandField ShowDeleteButton="True" ShowEditButton="true" />
                 </Columns>
+
+<HeaderStyle CssClass="thead-inverse"></HeaderStyle>
+
                 <PagerStyle HorizontalAlign="Center" />
             </asp:GridView>
             <asp:ObjectDataSource ID="odsCliente" runat="server" 
@@ -121,7 +140,9 @@
                 SortParameterName="ordenPor"
                 MaximumRowsParameterName="filasPagina"
                 SelectCountMethod="totalRegistrosCliente"
-                InsertMethod="crearCliente">
+                InsertMethod="crearCliente"                
+                DeleteMethod="eliminarCliente"
+                UpdateMethod="modificarCliente">
                 <InsertParameters>
                     <asp:Parameter Name="nombres" Type="String" />
                     <asp:Parameter Name="apellidos" Type="String" />
@@ -129,6 +150,17 @@
                     <asp:Parameter Name="activo" Type="Boolean" />
                     <asp:Parameter Name="tipoInscripcion" Type="String" />
                 </InsertParameters>
+                <UpdateParameters>
+                    <asp:Parameter Name="nombres" Type="String" />
+                    <asp:Parameter Name="apellidos" Type="String" />
+                    <asp:Parameter Name="fechaIngreso" Type="DateTime" />
+                    <asp:Parameter Name="activo" Type="Boolean" />
+                    <asp:Parameter Name="tipoInscripcion" Type="String" />
+                    <asp:Parameter Name="id" Type="Int32" />
+                </UpdateParameters>
+                <DeleteParameters>
+                    <asp:Parameter Name="id" Type="Int32" />
+                </DeleteParameters>
             </asp:ObjectDataSource>
         </div>
     </div>

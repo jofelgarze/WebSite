@@ -75,6 +75,24 @@ namespace CapaDatos.Negocio
             contextoDb.SaveChanges();
         }
 
+        public void eliminarCliente(int id) {
+            var original = contextoDb.Clientes.Find(id);
+            contextoDb.Clientes.Remove(original);
+            contextoDb.SaveChanges();
+        }
+
+        public void modificarCliente(int id, string nombres, string apellidos, DateTime fechaIngreso, Boolean activo, string tipoInscripcion)
+        {
+            var original = contextoDb.Clientes.Find(id);
+
+            original.Nombres = nombres;
+            original.Apellidos = apellidos;
+            original.Activo = activo;
+            original.TipoInscripcion = tipoInscripcion;
+            original.FechaIngreso = fechaIngreso;
+
+            contextoDb.SaveChanges();
+        }
 
         public void Dispose()
         {
