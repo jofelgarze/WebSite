@@ -15,13 +15,13 @@
                     <label for="nombres" class="col-sm-4 control-label">Nombres</label>
                     <div class="col-sm-8">
                         <asp:TextBox ID="txtNombres" runat="server" CssClass="form-control" 
-                            AutoCompleteType="Disabled" placeholder="Nombres"></asp:TextBox>
+                            AutoCompleteType="Disabled" placeholder="Nombres" ValidationGroup="FrmIngreso"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="rfvNombres" ControlToValidate="txtNombres" Display="Dynamic"
-                            runat="server" ErrorMessage="El campo es obligatorio..." CssClass="text-danger">
+                            runat="server" ErrorMessage="El campo es obligatorio..." CssClass="text-danger" ValidationGroup="FrmIngreso">
                         </asp:RequiredFieldValidator>
                         <asp:RegularExpressionValidator ID="revNombres" runat="server" CssClass="text-danger"
                             ValidationExpression="^[\s\S]{3,50}$" ControlToValidate="txtNombres"  Display="Dynamic"
-                            ErrorMessage="Debe tener entre 3 y 50 caracteres">
+                            ErrorMessage="Debe tener entre 3 y 50 caracteres" ValidationGroup="FrmIngreso">
                         </asp:RegularExpressionValidator>
                     </div>
                 </div>
@@ -29,13 +29,13 @@
                     <label for="apellidos" class="col-sm-4 control-label">Apellidos</label>
                     <div class="col-sm-8">
                         <asp:TextBox ID="txtApellidos" runat="server" CssClass="form-control" 
-                            AutoCompleteType="Disabled" placeholder="Apellidos"></asp:TextBox>
+                            AutoCompleteType="Disabled" placeholder="Apellidos" ValidationGroup="FrmIngreso"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="rfvApellidos" ControlToValidate="txtNombres" Display="Dynamic"
-                            runat="server" ErrorMessage="El campo es obligatorio..." CssClass="text-danger">
+                            runat="server" ErrorMessage="El campo es obligatorio..." CssClass="text-danger" ValidationGroup="FrmIngreso">
                         </asp:RequiredFieldValidator>
                         <asp:RegularExpressionValidator ID="revApellidos" runat="server" CssClass="text-danger"
                             ValidationExpression="^[\s\S]{3,50}$" ControlToValidate="txtApellidos"  Display="Dynamic"
-                            ErrorMessage="Debe tener entre 3 y 50 caracteres">
+                            ErrorMessage="Debe tener entre 3 y 50 caracteres" ValidationGroup="FrmIngreso">
                         </asp:RegularExpressionValidator>
                     </div>
                 </div>
@@ -44,13 +44,13 @@
                     <div class="col-sm-8">
                         <div class="checkbox">
                             <label>
-                                <asp:RadioButton runat="server" ID="rbtInternet" GroupName="TipoInscripcion"></asp:RadioButton>
+                                <asp:RadioButton runat="server" ID="rbtInternet" GroupName="TipoInscripcion" ValidationGroup="FrmIngreso"></asp:RadioButton>
                                 Internet 
                             </label>
                         </div>
                         <div class="checkbox">
                             <label>
-                                <asp:RadioButton runat="server" ID="rbtVentanilla" GroupName="TipoInscripcion"></asp:RadioButton>
+                                <asp:RadioButton runat="server" ID="rbtVentanilla" GroupName="TipoInscripcion" ValidationGroup="FrmIngreso"></asp:RadioButton>
                                 Ventanilla
                             </label>
                         </div>                        
@@ -60,14 +60,14 @@
                     <label for="fingreso" class="col-sm-4 control-label">Fecha Ingreso</label>
                     <div class="col-sm-8">
                        <asp:TextBox ID="txtFechaIngreso" runat="server" CssClass="form-control" 
-                            AutoCompleteType="Disabled" placeholder="Fecha Ingreso"></asp:TextBox>
+                            AutoCompleteType="Disabled" placeholder="Fecha Ingreso" ValidationGroup="FrmIngreso"></asp:TextBox>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-4 col-sm-8">
                         <div class="checkbox">
                             <label>
-                                <asp:CheckBox ID="chkActivo" runat="server" />
+                                <asp:CheckBox ID="chkActivo" runat="server" ValidationGroup="FrmIngreso" />
                                 Activo
                             </label>
                         </div>
@@ -75,7 +75,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-4 col-sm-8">
-                        <asp:Button ID="btnGuardar" runat="server" Text="Guardar" class="btn btn-default" OnClick="btnGuardar_Click"/>
+                        <asp:Button ID="btnGuardar" runat="server" Text="Guardar" class="btn btn-default" OnClick="btnGuardar_Click" ValidationGroup="FrmIngreso" />
                         <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" class="btn btn-default" 
                             OnClick="btnCancelar_Click" CausesValidation="false"/>
                     </div>
@@ -109,9 +109,8 @@
                             <asp:Label ID="lblCodigo" runat="server" Text='<%# Eval("TipoInscripcion") %>'></asp:Label>
                         </ItemTemplate>
                         <EditItemTemplate>
-                            <asp:DropDownList ID="ddlTipoInscripcion" runat="server" SelectedValue='<%# Bind("TipoInscripcion") %>'>
-                                <asp:ListItem Value="Internet"></asp:ListItem>
-                                <asp:ListItem Value="Ventanilla"></asp:ListItem>
+                            <asp:DropDownList ID="ddlTipoInscripcion" runat="server" SelectedValue='<%# Bind("TipoInscripcion") %>'
+                                DataSourceID="odsClienteTipoInscripcion">
                             </asp:DropDownList> 
                         </EditItemTemplate>
                     </asp:TemplateField>
@@ -125,11 +124,19 @@
                         </EditItemTemplate>
                     </asp:TemplateField>
                     <asp:CheckBoxField DataField="Activo" HeaderText="Activo" SortExpression="Activo" />
-                    <asp:CommandField ShowDeleteButton="True" ShowEditButton="true" />
+                    <asp:TemplateField ShowHeader="False">
+                        <EditItemTemplate>
+                            <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="True" CommandName="Update" Text="Actualizar"></asp:LinkButton>
+                            &nbsp;<asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancelar"></asp:LinkButton>
+                        </EditItemTemplate>
+                        <ItemTemplate>
+                            <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Edit" Text="Editar"></asp:LinkButton>
+                            &nbsp;<asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Delete" Text="Eliminar" 
+                                CssClass="lnk-eliminar"></asp:LinkButton>
+                        </ItemTemplate>
+                    </asp:TemplateField>
                 </Columns>
-
-<HeaderStyle CssClass="thead-inverse"></HeaderStyle>
-
+                <HeaderStyle CssClass="thead-inverse"></HeaderStyle>
                 <PagerStyle HorizontalAlign="Center" />
             </asp:GridView>
             <asp:ObjectDataSource ID="odsCliente" runat="server" 
@@ -162,11 +169,21 @@
                     <asp:Parameter Name="id" Type="Int32" />
                 </DeleteParameters>
             </asp:ObjectDataSource>
+            <asp:ObjectDataSource ID="odsClienteTipoInscripcion" runat="server" 
+                SelectMethod="consultarTipoInscripcion" 
+                TypeName="CapaDatos.Negocio.ClientesNegocio"
+                >
+            </asp:ObjectDataSource>
         </div>
     </div>
     <script>
         $("#MainContent_txtFechaIngreso").datepicker({
             "dateFormat":"yy-mm-dd",
+        });
+        $(document).on('click', '.lnk-eliminar', function (e) {
+            let fila = $(this).closest('tr');//busco a la fila a la que pertenece el link de eliminar
+            let nombre = $(fila.find("td")[1]).text() + " " + $(fila.find("td")[2]).text(); //Tomo los valores de las celdas necesarias
+            return confirm('¿Esta seguro de eliminar a ' + nombre + ' el registro?'); //Construye el mensaje a mostrar
         });
     </script>
 </asp:Content>

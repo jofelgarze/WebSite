@@ -11,6 +11,13 @@ namespace CapaDatos.Negocio
     {
         private TiendaContextoDb contextoDb = new TiendaContextoDb();
 
+        public List<string> consultarTipoInscripcion() {
+            return new List<string>
+            {
+                "Internet", "Ventanilla","Promocion", "Referido"
+            };
+        }
+
         public int totalRegistrosCliente() {
             return contextoDb.Clientes.Count();
         }
