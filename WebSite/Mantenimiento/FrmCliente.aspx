@@ -167,7 +167,7 @@
                     <asp:Parameter Name="id" Type="Int32" />
                 </UpdateParameters>
                 <DeleteParameters>
-                    <asp:Parameter Name="id" Type="Int32" />
+                    <asp:Parameter Name="Id" Type="Int32" />
                 </DeleteParameters>
             </asp:ObjectDataSource>
             <asp:ObjectDataSource ID="odsClienteTipoInscripcion" runat="server" 
