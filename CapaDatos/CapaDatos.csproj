@@ -51,6 +51,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entidades\Cliente.cs" />
+    <Compile Include="Entidades\DetallePedido.cs" />
+    <Compile Include="Entidades\Pedido.cs" />
     <Compile Include="Entidades\Producto.cs" />
     <Compile Include="Entidades\TipoProducto.cs" />
     <Compile Include="Migrations\202007010053120_BaseDatosIncial.cs" />
@@ -64,6 +66,10 @@
     <Compile Include="Migrations\202007030108426_CrearTablaTipoProducto_AltClienteProducto.cs" />
     <Compile Include="Migrations\202007030108426_CrearTablaTipoProducto_AltClienteProducto.Designer.cs">
       <DependentUpon>202007030108426_CrearTablaTipoProducto_AltClienteProducto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007150015340_CrearTblPedidos_DetallePedidos.cs" />
+    <Compile Include="Migrations\202007150015340_CrearTblPedidos_DetallePedidos.Designer.cs">
+      <DependentUpon>202007150015340_CrearTblPedidos_DetallePedidos.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Negocio\ClientesNegocio.cs" />
@@ -87,6 +93,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007030108426_CrearTablaTipoProducto_AltClienteProducto.resx">
       <DependentUpon>202007030108426_CrearTablaTipoProducto_AltClienteProducto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007150015340_CrearTblPedidos_DetallePedidos.resx">
+      <DependentUpon>202007150015340_CrearTblPedidos_DetallePedidos.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
