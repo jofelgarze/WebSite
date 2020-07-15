@@ -21,5 +21,7 @@ namespace CapaDatos.Entidades
         [StringLength(250)]
         public string Direccion { get; set; }
         public bool Entregado { get; set; }
+        public List<DetallePedido> Detalles { get; set; }
+
     }
 }

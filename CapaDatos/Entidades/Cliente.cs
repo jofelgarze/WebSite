@@ -31,5 +31,12 @@ namespace CapaDatos.Entidades
 
         public DateTime FechaIngreso { get; set; }
         public bool Activo { get; set; }
+
+        [NotMapped]
+        public string NombreCompleto {
+            get {
+                return this.Apellidos + " " + this.Nombres;
+            }
+        }
     }
 }

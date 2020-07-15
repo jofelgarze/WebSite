@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +18,14 @@ namespace CapaDatos.Entidades
         [Required]
         public Pedido Pedido { get; set; }
         [Required]
-        public Producto Producto { get; set; }        
+        public Producto Producto { get; set; }       
+        
+        [NotMapped]
+        public double PrecioProducto { 
+            get { 
+                return Producto != null ? Producto.Precio : 0.0; 
+            } 
+        }
 
     }
 
