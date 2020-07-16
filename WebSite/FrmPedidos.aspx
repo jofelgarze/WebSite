@@ -3,7 +3,10 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <h1>Pedidos <small>Creación</small></h1>
     <hr />
-    
+    <asp:Panel ID="pnlMensaje" runat="server" CssClass="alert alert-success alert-dismissible" Visible="false">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>¡Pedido realizado!</strong> espere una llamada de nuestro asesor. Codigo de su pedido: <asp:Label runat="server" ID="txtPedidoId"></asp:Label>
+    </asp:Panel>
     <div class="form-horizontal">
         <div class="form-group">
             <asp:Panel ID="pnlMensajes" runat="server" Visible="false">
@@ -72,7 +75,7 @@
                     AutoGenerateColumns="false" EnableViewState="false"
                     CssClass="table  table-striped table-bordered table-hover table-responsive " 
                     DataKeyNames="Id" ShowFooter="true" OnRowCommand="gvDetallePedidos_RowCommand"
-                    SelectMethod="gvDetallePedidos_GetData" ItemType="CapaDatos.Entidades.DetallePedido">
+                    SelectMethod="gvDetallePedidos_GetData" ItemType="CapaDatos.Entidades.DetallePedido" >
                     <Columns>
                         <asp:TemplateField HeaderText="Codigo" SortExpression="Id" InsertVisible="false">
                             <ItemTemplate>
@@ -94,9 +97,9 @@
                             </EditItemTemplate>
                             <FooterTemplate>
                                 <asp:DropDownList ID="ddlNuevoProducto" runat="server" SelectedValue='<%# Bind("Producto.Id") %>'
-                                    DataTextField="Nombre" DataValueField="Id"
+                                    DataTextField="Nombre" DataValueField="Id" ValidationGroup="Nuevo"
                                     DataSourceID="odsProductos"></asp:DropDownList>
-                                <asp:RequiredFieldValidator ID="rfvNuevoProducto" runat="server"
+                                <asp:RequiredFieldValidator ID="rfvNuevoProducto" runat="server" ValidationGroup="Nuevo"
                                     ErrorMessage="El campo Producto es obligatorio" Display="Dynamic"
                                     ControlToValidate="ddlNuevoProducto" CssClass="text-danger"
                                     >*</asp:RequiredFieldValidator>
@@ -120,16 +123,16 @@
                                     >*</asp:RequiredFieldValidator>
                             </EditItemTemplate>
                             <FooterTemplate>
-                                <asp:TextBox ID="txtNuevaCantidad" runat="server" ></asp:TextBox>
+                                <asp:TextBox ID="txtNuevaCantidad" runat="server"  ValidationGroup="Nuevo"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="rfvNuevaCantidad" runat="server"
                                     ErrorMessage="El campo Cantidad es obligatorio" Display="Dynamic"
-                                    ControlToValidate="txtNuevaCantidad" CssClass="text-danger"
+                                    ControlToValidate="txtNuevaCantidad" CssClass="text-danger" ValidationGroup="Nuevo"
                                     >*</asp:RequiredFieldValidator>
                             </FooterTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField ShowHeader="False">
                             <EditItemTemplate>
-                                <asp:LinkButton ID="lnkActualizar" runat="server" CausesValidation="True" CommandName="Modificar" Text="Actualizar"></asp:LinkButton>
+                                <asp:LinkButton ID="lnkActualizar" runat="server" CausesValidation="True" CommandName="Update" Text="Actualizar"></asp:LinkButton>
                                 &nbsp;<asp:LinkButton ID="lnkCancelar" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancelar"></asp:LinkButton>
                             </EditItemTemplate>
                             <ItemTemplate>
@@ -138,11 +141,17 @@
                                     CssClass="lnk-eliminar"></asp:LinkButton>
                             </ItemTemplate>
                             <FooterTemplate>
-                                <asp:LinkButton ID="lnkCrear" runat="server" CausesValidation="True" ValidationGroup="Nuevo" CommandName="Insertar" Text="Crear"></asp:LinkButton>
+                                <asp:LinkButton ID="lnkCrear" runat="server" CausesValidation="True" ValidationGroup="Nuevo" OnClick="lnkCrear_Click" Text="Crear"></asp:LinkButton>
                             </FooterTemplate>
                         </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-10">
+                <asp:ValidationSummary ID="vsProductos" runat="server" CssClass="alert alert-warning" ValidationGroup="Nuevo"/>
+                <asp:ValidationSummary ID="vsProductosEdicion" runat="server" CssClass="alert alert-warning"/>
             </div>
         </div>
         <asp:ObjectDataSource ID="odsClientes" runat="server" SelectMethod="consultarClientes" TypeName="CapaDatos.Negocio.ClientesNegocio">
@@ -159,35 +168,7 @@
                 <asp:Parameter DefaultValue="" Name="campoOrden" Type="String" />
             </SelectParameters>
         </asp:ObjectDataSource>
-       <%-- <asp:ObjectDataSource ID="odsDetallePedido" runat="server" 
-            TypeName="CapaDatos.Negocio.ProductosNegocio"
-            SelectMethod="consultar"
-            EnablePaging="true"
-            SelectCountMethod="totalRegistros"
-            StartRowIndexParameterName="indice"
-            MaximumRowsParameterName="registrosPagina"        
-            SortParameterName="campoOrden"
-            InsertMethod="crear" OnInserting="odsProductos_Inserting"
-            DeleteMethod="eliminar" OnDeleting="odsProductos_Deleting" OnDeleted="odsProductos_ProcesoCompletado"
-            UpdateMethod="editar" OldValuesParameterFormatString="original_{0}" OnUpdating="odsProductos_Updating" OnUpdated="odsProductos_ProcesoCompletado"
-            >
-            <InsertParameters>
-                <asp:Parameter Name="nombre" Type="String" />
-                <asp:Parameter Name="tipoProducto" Type="Int32"/>
-                <asp:Parameter Name="precio" Type="Double"/>
-                <asp:Parameter Name="activo" Type="Boolean"/>
-            </InsertParameters>
-            <UpdateParameters>
-                <asp:Parameter Name="id" Type="Int32" />
-                <asp:Parameter Name="nombre" Type="String" />
-                <asp:Parameter Name="tipoProducto" Type="Int32"/>
-                <asp:Parameter Name="precio" Type="Double"/>
-                <asp:Parameter Name="activo" Type="Boolean"/>
-            </UpdateParameters>
-            <DeleteParameters>
-                <asp:Parameter Name="id" Type="Int32" />
-            </DeleteParameters>
-        </asp:ObjectDataSource>--%>
+       
     </div>
         
     <script>

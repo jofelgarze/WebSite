@@ -59,6 +59,11 @@ namespace CapaDatos.Negocio
             return query.Skip(indice).Take(registrosPagina).ToList();
         }
 
+        public Producto consultar(int id)
+        {
+            return contextoDb.Productos.Include(l => l.TipoProducto).Where(p => p.Id == id).SingleOrDefault();
+        }
+
         //Insertar
         public void crear(string nombre, int tipoProducto, Double precio, Boolean activo ) {
             contextoDb.Productos.Add(new Producto() { 

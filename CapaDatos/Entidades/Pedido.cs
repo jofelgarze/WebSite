@@ -13,6 +13,7 @@ namespace CapaDatos.Entidades
         [Key]
         public int Id { get; set; }
         [Required]
+        public int ClienteId { get; set; }
         public Cliente Cliente { get; set; }
         [Required]
         public DateTime FechaIngreso { get; set; }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CapaDatos.Negocio
 {
-    class PedidosNegocio : IDisposable
+    public class PedidosNegocio : IDisposable
     {
         private TiendaContextoDb contextoDb = new TiendaContextoDb();
 
@@ -64,6 +64,22 @@ namespace CapaDatos.Negocio
             return query.Skip(filaInicial).Take(filasPagina).ToList();
         }
 
+        public Pedido Crear(Pedido pedido) {
+
+            foreach (var detalle in pedido.Detalles)
+            {
+                detalle.Pedido = pedido;
+            }
+            pedido = contextoDb.Pedidos.Add(pedido);
+            
+            
+            //Equivalente Simplificado
+            //pedido.Detalles.ForEach(d => d.Pedido = pedido);
+            //pedido.Detalles.ForEach(d => contextoDb.DetallePedidos.Add(d));
+
+            contextoDb.SaveChanges();
+            return pedido;
+        }
 
 
         public void Dispose()

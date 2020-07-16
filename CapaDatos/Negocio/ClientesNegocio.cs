@@ -66,6 +66,11 @@ namespace CapaDatos.Negocio
             return query.Skip(filaInicial).Take(filasPagina).ToList();
         }
 
+        public Cliente consultarClientes(int id)
+        {
+            return contextoDb.Clientes.Where(p => p.Id == id).SingleOrDefault();
+        }
+
         public void crearCliente(string nombres, string apellidos, DateTime fechaIngreso, Boolean activo, string tipoInscripcion) {
             crearCliente(new Cliente()
             {

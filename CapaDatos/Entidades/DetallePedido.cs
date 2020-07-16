@@ -16,8 +16,11 @@ namespace CapaDatos.Entidades
         [Range(1,9999)]
         public int Cantidad { get; set; }
         [Required]
+        public int PedidoId { get; set; }
         public Pedido Pedido { get; set; }
+
         [Required]
+        public int ProductoId { get; set; }
         public Producto Producto { get; set; }       
         
         [NotMapped]

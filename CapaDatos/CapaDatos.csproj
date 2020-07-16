@@ -71,6 +71,18 @@
     <Compile Include="Migrations\202007150015340_CrearTblPedidos_DetallePedidos.Designer.cs">
       <DependentUpon>202007150015340_CrearTblPedidos_DetallePedidos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202007160105564_AlterTblDetallePedido.cs" />
+    <Compile Include="Migrations\202007160105564_AlterTblDetallePedido.Designer.cs">
+      <DependentUpon>202007160105564_AlterTblDetallePedido.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007160112585_AlterTblDetallePedido_productoId.cs" />
+    <Compile Include="Migrations\202007160112585_AlterTblDetallePedido_productoId.Designer.cs">
+      <DependentUpon>202007160112585_AlterTblDetallePedido_productoId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007160122038_AlterTblPedido_clienteId.cs" />
+    <Compile Include="Migrations\202007160122038_AlterTblPedido_clienteId.Designer.cs">
+      <DependentUpon>202007160122038_AlterTblPedido_clienteId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Negocio\ClientesNegocio.cs" />
     <Compile Include="Negocio\PedidosNegocio.cs" />
@@ -97,6 +109,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007150015340_CrearTblPedidos_DetallePedidos.resx">
       <DependentUpon>202007150015340_CrearTblPedidos_DetallePedidos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007160105564_AlterTblDetallePedido.resx">
+      <DependentUpon>202007160105564_AlterTblDetallePedido.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007160112585_AlterTblDetallePedido_productoId.resx">
+      <DependentUpon>202007160112585_AlterTblDetallePedido_productoId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007160122038_AlterTblPedido_clienteId.resx">
+      <DependentUpon>202007160122038_AlterTblPedido_clienteId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
