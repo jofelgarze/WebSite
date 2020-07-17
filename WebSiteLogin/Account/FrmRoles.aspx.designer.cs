@@ -11,34 +11,25 @@ namespace WebSiteLogin.Account
 {
 
 
-    public partial class Manage
+    public partial class FrmRoles
     {
 
         /// <summary>
-        /// Control successMessage.
+        /// Control gvUsuarios.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder successMessage;
+        protected global::System.Web.UI.WebControls.GridView gvUsuarios;
 
         /// <summary>
-        /// Control ChangePassword.
+        /// Control tvRoles.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink ChangePassword;
-
-        /// <summary>
-        /// Control CreatePassword.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink CreatePassword;
+        protected global::System.Web.UI.WebControls.TreeView tvRoles;
     }
 }
