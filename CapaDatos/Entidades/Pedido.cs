@@ -24,5 +24,13 @@ namespace CapaDatos.Entidades
         public bool Entregado { get; set; }
         public List<DetallePedido> Detalles { get; set; }
 
+        [NotMapped]
+        public double Total
+        {
+            get
+            {
+                return Detalles != null ? Detalles.Sum(d => d.SubTotal) : 0.0;
+            }
+        }
     }
 }

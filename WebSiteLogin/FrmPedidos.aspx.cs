@@ -95,6 +95,7 @@ namespace WebSiteLogin
             ProductosNegocio productoNegocio = new ProductosNegocio();
             var producto = productoNegocio.consultar(Convert.ToInt32((gvDetallePedidos.FooterRow.FindControl("ddlNuevoProducto") as DropDownList).SelectedValue));
 
+            detallePedido.Id = new Random().Next(1, 1000);
             detallePedido.Producto = producto;
             detallePedido.ProductoId = producto.Id;
             detallePedido.Cantidad = Convert.ToInt32((gvDetallePedidos.FooterRow.FindControl("txtNuevaCantidad") as TextBox).Text);
@@ -104,7 +105,9 @@ namespace WebSiteLogin
             {
                 this.Detalles.Remove(delete);
             }
+            
             gvDetallePedidos.DataBind();
+            (gvDetallePedidos.FooterRow.FindControl("lblTotal") as Label).Text = this.Detalles.Sum(d => d.SubTotal).ToString();
             lblMensaje.Text = "";
             pnlMensaje.Visible = false;
         }
@@ -116,6 +119,43 @@ namespace WebSiteLogin
             ProductosNegocio productoNegocio = new ProductosNegocio();
             var producto = productoNegocio.consultar(Convert.ToInt32(ddl.SelectedValue));
 
+        }
+
+        // El nombre de parámetro del id. debe coincidir con el valor DataKeyNames establecido en el control
+        public void gvDetallePedidos_DeleteItem(int id)
+        {
+            var detalle = this.Detalles.Where(d => d.Id == id).SingleOrDefault();
+            this.Detalles.Remove(detalle);
+            
+        }
+
+        // El nombre de parámetro del id. debe coincidir con el valor DataKeyNames establecido en el control
+        public void gvDetallePedidos_UpdateItem(int id)
+        {
+            var detalle = this.Detalles.Where(d => d.Id == id).SingleOrDefault();
+
+            if (detalle == null)
+            {
+                // No se encontró el elemento
+                ModelState.AddModelError("", String.Format("No se encontró el elemento con id. {0}", id));
+                return;
+            }
+            TryUpdateModel(detalle);
+            if (ModelState.IsValid)
+            {
+                // Guarde los cambios aquí, por ejemplo MyDataLayer.SaveChanges();
+                
+            }
+        }
+
+        protected void gvDetallePedidos_RowDeleted(object sender, GridViewDeletedEventArgs e)
+        {
+            (gvDetallePedidos.FooterRow.FindControl("lblTotal") as Label).Text = this.Detalles.Sum(d => d.SubTotal).ToString();
+        }
+
+        protected void gvDetallePedidos_RowUpdated(object sender, GridViewUpdatedEventArgs e)
+        {
+            (gvDetallePedidos.FooterRow.FindControl("lblTotal") as Label).Text = this.Detalles.Sum(d => d.SubTotal).ToString();
         }
     }
 }

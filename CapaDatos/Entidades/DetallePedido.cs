@@ -30,6 +30,15 @@ namespace CapaDatos.Entidades
             } 
         }
 
+        [NotMapped]
+        public double SubTotal
+        {
+            get
+            {
+                return Producto != null ? Producto.Precio * Cantidad : 0.0;
+            }
+        }
+
     }
 
 }

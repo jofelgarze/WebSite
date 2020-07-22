@@ -72,12 +72,29 @@
         <div class="row">
             <div class="col-md-10">
                 <asp:GridView ID="gvDetallePedidos" runat="server"
-                    AutoGenerateColumns="false" EnableViewState="false"
+                    AutoGenerateColumns="False" EnableViewState="False"
                     CssClass="table  table-striped table-bordered table-hover table-responsive " 
-                    DataKeyNames="Id" ShowFooter="true" OnRowCommand="gvDetallePedidos_RowCommand"
-                    SelectMethod="gvDetallePedidos_GetData" ItemType="CapaDatos.Entidades.DetallePedido" >
+                    DataKeyNames="Id" ShowFooter="True" OnRowCommand="gvDetallePedidos_RowCommand"
+                    SelectMethod="gvDetallePedidos_GetData" ItemType="CapaDatos.Entidades.DetallePedido"
+                    DeleteMethod="gvDetallePedidos_DeleteItem" OnRowDeleted="gvDetallePedidos_RowDeleted"
+                    UpdateMethod="gvDetallePedidos_UpdateItem" OnRowUpdated="gvDetallePedidos_RowUpdated">
                     <Columns>
-                        <asp:TemplateField HeaderText="Codigo" SortExpression="Id" InsertVisible="false">
+                        <asp:TemplateField ShowHeader="False">
+                            <EditItemTemplate>
+                                <asp:LinkButton ID="lnkActualizar" runat="server" CausesValidation="True" CommandName="Update" Text="Actualizar"></asp:LinkButton>
+                                &nbsp;<asp:LinkButton ID="lnkCancelar" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancelar"></asp:LinkButton>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:LinkButton ID="lnkEditar" runat="server" CausesValidation="False" CommandName="Edit" Text="Editar"></asp:LinkButton>
+                                &nbsp;<asp:LinkButton ID="lnkEliminar" runat="server" CausesValidation="False" CommandName="Delete" Text="Eliminar" 
+                                    CssClass="lnk-eliminar"></asp:LinkButton>
+                            </ItemTemplate>
+                            <FooterTemplate>
+                                <asp:LinkButton ID="lnkCrear" runat="server" CausesValidation="True" ValidationGroup="Nuevo" OnClick="lnkCrear_Click" Text="Crear"></asp:LinkButton>
+                            </FooterTemplate>
+                            <ItemStyle Width="130px" />
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Codigo" SortExpression="Id" InsertVisible="false" Visible="false">
                             <ItemTemplate>
                                  <asp:Label ID="lblCodigo" runat="server" Text='<%# Eval("Id") %>'></asp:Label>
                             </ItemTemplate>                      
@@ -86,7 +103,7 @@
                             <ItemTemplate>
                                  <asp:Label ID="lblNombre" runat="server" Text='<%# Eval("Producto.Nombre") %>'></asp:Label>
                             </ItemTemplate>
-                            <EditItemTemplate>
+                           <%-- <EditItemTemplate>
                                 <asp:DropDownList ID="ddlProducto" runat="server" SelectedValue='<%# Bind("Producto.Id") %>'
                                     DataTextField="Nombre" DataValueField="Id"
                                     DataSourceID="odsProductos"></asp:DropDownList>
@@ -94,9 +111,9 @@
                                     ErrorMessage="El campo Producto es obligatorio" Display="Dynamic"
                                     ControlToValidate="ddlProducto" CssClass="text-danger"
                                     >*</asp:RequiredFieldValidator>
-                            </EditItemTemplate>
+                            </EditItemTemplate>--%>
                             <FooterTemplate>
-                                <asp:DropDownList ID="ddlNuevoProducto" runat="server" SelectedValue='<%# Bind("Producto.Id") %>'
+                                <asp:DropDownList ID="ddlNuevoProducto" runat="server" SelectedValue='<%# Bind("Producto.Id") %>' CssClass="form-control"
                                     DataTextField="Nombre" DataValueField="Id" ValidationGroup="Nuevo" OnSelectedIndexChanged="ddlNuevoProducto_SelectedIndexChanged"
                                     DataSourceID="odsProductos"></asp:DropDownList>
                                 <asp:RequiredFieldValidator ID="rfvNuevoProducto" runat="server" ValidationGroup="Nuevo"
@@ -109,13 +126,14 @@
                             <ItemTemplate>
                                  <asp:Label ID="lblPrecio" runat="server" Text='<%# Eval("PrecioProducto") %>'></asp:Label>
                             </ItemTemplate>
+                            <ItemStyle Width="15%" />
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Cantidad">
                             <ItemTemplate>
                                  <asp:Label ID="lblCantidad" runat="server" Text='<%# Eval("Cantidad") %>'></asp:Label>
                             </ItemTemplate>
                             <EditItemTemplate>
-                                <asp:TextBox ID="txtCantidad" runat="server" 
+                                <asp:TextBox ID="txtCantidad" runat="server" CssClass="form-control"
                                     Text='<%# Bind("Cantidad") %>'></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="rfvNombre" runat="server"
                                     ErrorMessage="El campo Cantidad es obligatorio" Display="Dynamic"
@@ -123,27 +141,24 @@
                                     >*</asp:RequiredFieldValidator>
                             </EditItemTemplate>
                             <FooterTemplate>
-                                <asp:TextBox ID="txtNuevaCantidad" runat="server"  ValidationGroup="Nuevo"></asp:TextBox>
+                                <asp:TextBox ID="txtNuevaCantidad" runat="server"  ValidationGroup="Nuevo" CssClass="form-control"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="rfvNuevaCantidad" runat="server"
                                     ErrorMessage="El campo Cantidad es obligatorio" Display="Dynamic"
                                     ControlToValidate="txtNuevaCantidad" CssClass="text-danger" ValidationGroup="Nuevo"
                                     >*</asp:RequiredFieldValidator>
                             </FooterTemplate>
+                            <ItemStyle Width="15%" />
                         </asp:TemplateField>
-                        <asp:TemplateField ShowHeader="False">
-                            <EditItemTemplate>
-                                <asp:LinkButton ID="lnkActualizar" runat="server" CausesValidation="True" CommandName="Update" Text="Actualizar"></asp:LinkButton>
-                                &nbsp;<asp:LinkButton ID="lnkCancelar" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancelar"></asp:LinkButton>
-                            </EditItemTemplate>
+                        <asp:TemplateField HeaderText="SubTotal">
                             <ItemTemplate>
-                                <asp:LinkButton ID="lnkEditar" runat="server" CausesValidation="False" CommandName="Edit" Text="Editar"></asp:LinkButton>
-                                &nbsp;<asp:LinkButton ID="lnkEliminar" runat="server" CausesValidation="False" CommandName="Eliminar" Text="Eliminar" 
-                                    CssClass="lnk-eliminar"></asp:LinkButton>
+                                 <asp:Label ID="lblSubtotal" runat="server" Text='<%# Eval("SubTotal") %>'></asp:Label>
                             </ItemTemplate>
                             <FooterTemplate>
-                                <asp:LinkButton ID="lnkCrear" runat="server" CausesValidation="True" ValidationGroup="Nuevo" OnClick="lnkCrear_Click" Text="Crear"></asp:LinkButton>
+                                <asp:label ID="lblTotal" runat="server"></asp:label>
                             </FooterTemplate>
+                            <ItemStyle Width="15%" />
                         </asp:TemplateField>
+                        
                     </Columns>
                 </asp:GridView>
             </div>
