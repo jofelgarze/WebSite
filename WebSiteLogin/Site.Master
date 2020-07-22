@@ -70,7 +70,7 @@
                                                 <li><a href="/Mantenimiento/FrmProductos">Productos</a></li>
                                                 <li role="separator" class="divider"></li>
                                                 <li><a href="#">Procesar Pedido</a></li>
-                                                <li><a href="#">Anular Pedido</a></li>
+                                                <li><a href="/Mantenimiento/FrmAnularPedido">Anular Pedido</a></li>
                                             </ul>
                                         </li>
                                         <li><a runat="server" href="/Account/FrmRoles">Roles</a></li>

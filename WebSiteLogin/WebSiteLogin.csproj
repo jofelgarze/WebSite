@@ -180,6 +180,7 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Account\Web.config" />
+    <Content Include="Mantenimiento\FrmAnularPedido.aspx" />
     <Content Include="Mantenimiento\Web.config" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Mantenimiento\FrmCliente.aspx" />
@@ -316,6 +317,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Mantenimiento\FrmAnularPedido.aspx.cs">
+      <DependentUpon>FrmAnularPedido.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mantenimiento\FrmAnularPedido.aspx.designer.cs">
+      <DependentUpon>FrmAnularPedido.aspx</DependentUpon>
     </Compile>
     <Compile Include="Mantenimiento\FrmCliente.aspx.cs">
       <DependentUpon>FrmCliente.aspx</DependentUpon>
