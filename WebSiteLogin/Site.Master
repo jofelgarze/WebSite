@@ -73,6 +73,7 @@
                                                 <li><a href="#">Anular Pedido</a></li>
                                             </ul>
                                         </li>
+                                        <li><a runat="server" href="/Account/FrmRoles">Roles</a></li>
                                     </ContentTemplate>
                                 </asp:RoleGroup>
                                 <asp:RoleGroup Roles="Operador">
